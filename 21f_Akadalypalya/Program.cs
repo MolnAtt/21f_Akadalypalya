@@ -18,34 +18,45 @@ namespace _21f_Akadalypalya
 		/// <returns></returns>
 		static List<(int, int)> Szomszédai(string[] map, int i, int j) 
 		{
+
 			int N = map.Length; // sorok száma
 			int M = map[0].Length; // egy tetszőleges sor hossza = oszlopok száma
 
 			List<(int, int)> szomszedok = new List<(int, int)>();
 
-			if (0 < i && map[i - 1][j] != 'X') // É
+			if (0 < i && Szabad_e(map, i, j, i - 1,j)) // É
 			{
 				szomszedok.Add((i - 1, j));
 				//Console.WriteLine(map[i-1][j]);
 			}
-			if (0 < j && map[i][j-1]!='X')// NY
+			if (0 < j && Szabad_e(map, i, j, i, j - 1))// NY
 			{
 				szomszedok.Add((i, j - 1));
 				//Console.WriteLine(map[i][j-1]);
 			}
-			if (i < N - 1 && map[i + 1][j] != 'X') // D
+			if (i < N - 1 && Szabad_e(map, i, j, i + 1, j)) // D
 			{
 				szomszedok.Add((i + 1, j));
 				//Console.WriteLine(map[i+ 1][j]);
 
 			}
-			if (j < M - 1 && map[i][j + 1] != 'X') // K
+			if (j < M - 1 && Szabad_e(map, i, j, i, j + 1)) // K
 			{
 				szomszedok.Add((i, j+1));
 				//Console.WriteLine(map[i][j + 1]);
             }
 
 			return szomszedok;
+		}
+
+		static bool Szabad_e(string[] map, int pi, int pj, int qi, int qj)
+		{
+			string abc = "SabcdefghijklmnopqrstuvwxyzE";
+			char amin_allunk = map[pi][pj];
+			char ahova_lepnenk = map[qi][qj];
+			int amin_allunk_sorszam = abc.IndexOf(amin_allunk);
+			int ahova_lepnenk_sorszam = abc.IndexOf(ahova_lepnenk);
+			return amin_allunk_sorszam + 1 >= ahova_lepnenk_sorszam;
 		}
 
 		static List<(int, int)> Legrovidebb_ut(string[] map, (int, int) start, (int, int) end)
@@ -149,12 +160,12 @@ namespace _21f_Akadalypalya
 
 		static void Main(string[] args)
 		{
-			string[] map = File.ReadAllLines("input.txt");
+			string[] map = File.ReadAllLines("input2.txt");
 
 			// ez mutatja meg, hogy a 7. sor 5. oszlopa mi: map[7][5]
 
-			(int, int) S = (7, 5);
-			(int, int) G = (11, 16);
+			(int, int) S = (0, 0);
+			(int, int) G = (2, 5);
 			List<(int, int)> ut = Legrovidebb_ut(map, S, G);
 
             Console.WriteLine(string.Join(" -> ", ut));
