@@ -51,6 +51,10 @@ namespace _21f_Akadalypalya
 
 		static bool Szabad_e(string[] map, int pi, int pj, int qi, int qj)
 		{
+			// Az input.txt-re ez volt:
+			// return map[qi][qj] != 'X';
+
+			// ADVENT OF CODE feladat 2022/12:
 			string abc = "SabcdefghijklmnopqrstuvwxyzE";
 			char amin_allunk = map[pi][pj];
 			char ahova_lepnenk = map[qi][qj];
